@@ -30,20 +30,6 @@ public class SeleniumTest {
         driver.quit();
     }
 
-//    @Before
-//    public void setUp() {
-//        // Set up ChromeDriver path
-//        System.setProperty("webdriver.chrome.driver", "./chromedriver.exe");
-//
-//        WebDriverManager.chromedriver().setup();
-//
-//        // Create a new ChromeDriver instance
-//        driver = new ChromeDriver();
-//        File file = new File("CSSBoxModel.html");
-//        // Open the HTML file
-//        driver.get(file.getAbsolutePath());
-//    }
-
     @Test
     public void testAllPizzaPadding() {
         WebElement pizza = driver.findElement(By.className("pizza"));
@@ -74,9 +60,4 @@ public class SeleniumTest {
         assertEquals("10px solid rgb(0, 0, 0)", pizza3.getCssValue("border")); // Expected value for black solid 10px
     }
 
-//    @After
-//    public void tearDown() {
-//        // Close the browser
-//        driver.quit();
-//    }
 }
