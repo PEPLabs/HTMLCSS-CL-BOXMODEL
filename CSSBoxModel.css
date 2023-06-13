@@ -11,8 +11,8 @@ as a demonstration and complete the styling for the .pizza class and individual 
     /* Padding represents the space between the content and border */
     padding: 10px;
 
-    /* Borders can serve as visual markers to distinguish an element from its surroundings or other elements. 
-    unlike padding, borders are visible and can be styled with various colors, widths, and styles 
+    /* Borders can serve as visual markers to distinguish an element from its surroundings or other elements.
+    unlike padding, borders are visible and can be styled with various colors, widths, and styles
     (e.g., solid, dashed, dotted, double, groove, etc.). */
     border: 3px dotted purple;
 
@@ -25,7 +25,7 @@ as a demonstration and complete the styling for the .pizza class and individual 
     border: 10px solid saddlebrown; /* Crust (border) */
 
     /* TODO: Make the margin 20px - Margin represents the space between each pizza (element) */
-    
+
     width: 100px; /* Width of the content area */
     text-align: center; /* Centers the text */
 }
@@ -35,7 +35,7 @@ as a demonstration and complete the styling for the .pizza class and individual 
 
     /* TODO: Make the background-color yellow. This is the background of the content. */
 }
- 
+
 #pizza2 {
 
     /* TODO: Make the content color red - this is the word "Pepperoni" */
