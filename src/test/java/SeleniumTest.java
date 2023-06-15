@@ -37,6 +37,12 @@ public class SeleniumTest {
     }
 
     @Test
+    public void testAllPizzaMargin() {
+        WebElement pizza = driver.findElement(By.className("pizza"));
+        assertEquals("20px", pizza.getCssValue("margin"));
+    }
+
+    @Test
     public void testPizza1BackgroundColor() {
         WebElement pizza1 = driver.findElement(By.id("pizza1"));
         assertEquals("rgba(255, 255, 0, 1)", pizza1.getCssValue("background-color")); // Expected value for yellow
@@ -51,7 +57,13 @@ public class SeleniumTest {
     @Test
     public void testPizza2Border() {
         WebElement pizza2 = driver.findElement(By.id("pizza2"));
-        assertEquals("5px solid rgb(139, 69, 19)", pizza2.getCssValue("border")); // Expected value for 5px solid saddlebrown
+        assertEquals("solid", pizza2.getCssValue("border-style"));
+        assertEquals("rgb(139, 69, 19)", pizza2.getCssValue("border-color"));
+        // For some reason, possible due to inconsistencies between browsers, the border-width is sometimes
+        // retrieved as 4.6667. By converting it to a double and rounding, we circumvent this problem:
+        double borderWidth = Double.valueOf(pizza2.getCssValue("border-width").replace("px",""));
+        borderWidth = Math.round(borderWidth);
+        assertEquals(5.0, borderWidth);
     }
 
     @Test
