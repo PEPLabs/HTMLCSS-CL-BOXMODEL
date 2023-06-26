@@ -4,7 +4,7 @@ as a demonstration and complete the styling for the .pizza class and individual 
 
 #box-model {
     /* Content represents the text and background color of the text.  In this
-    cas the content is "CSS Box Model" */
+    case the content is "CSS Box Model" */
     color: darkblue;
     background-color: lightblue;
 
@@ -12,7 +12,7 @@ as a demonstration and complete the styling for the .pizza class and individual 
     padding: 10px;
 
     /* Borders can serve as visual markers to distinguish an element from its surroundings or other elements.
-    unlike padding, borders are visible and can be styled with various colors, widths, and styles
+    Unlike padding, borders are visible and can be styled with various colors, widths, and styles
     (e.g., solid, dashed, dotted, double, groove, etc.). */
     border: 3px dotted purple;
 
@@ -48,7 +48,6 @@ as a demonstration and complete the styling for the .pizza class and individual 
 #pizza3 {
 
     /* TODO: You burnt the Veggie Pizza! Make the border black solid 10px - this represents the crust. */
-
     color: darkgreen;
     background-color: lightgreen;
 }
