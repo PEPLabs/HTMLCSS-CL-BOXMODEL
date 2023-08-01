@@ -73,7 +73,7 @@ public class SeleniumTest {
         // retrieved as 4.6667. By converting it to a double and rounding, we circumvent this problem:
         double borderWidth = Double.valueOf(pizza2.getCssValue("border-width").replace("px",""));
         borderWidth = Math.round(borderWidth);
-        assertEquals(5.0, borderWidth);
+        assertEquals(5.0, borderWidth, 0.01);
     }
 
     @Test
