@@ -36,7 +36,7 @@ public class SeleniumTest {
     }
 
     @After
-    void teardown() {
+    public void teardown() {
         webDriver.quit();
     }
 
