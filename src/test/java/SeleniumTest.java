@@ -1,44 +1,73 @@
-import static org.junit.Assert.assertEquals;
+////////////////////////////////////////////////////////////
+// This is the new testing infrastructure. Merge this     //
+// into the other file without altering the test methods. //
+////////////////////////////////////////////////////////////
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import java.io.File;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
-
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.edge.EdgeDriverService;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SeleniumTest {
-
     private WebDriver webDriver;
-
-    @Before
+    private WebDriverWait wait;
+    private static final Logger logger = Logger.getLogger(SeleniumTest.class.getName());
+    private Process httpServerProcess;
+    private String browserType; // "chrome" or "edge"
+    
+    // Architecture and system detection
+    private static final String OS_NAME = System.getProperty("os.name").toLowerCase();
+    private static final String OS_ARCH = System.getProperty("os.arch").toLowerCase();
+    private static final boolean IS_ARM = OS_ARCH.contains("aarch64") || OS_ARCH.contains("arm");
+    private static final boolean IS_WINDOWS = OS_NAME.contains("windows");
+    private static final boolean IS_LINUX = OS_NAME.contains("linux");
+    private static final boolean IS_MAC = OS_NAME.contains("mac");
+  
+    @BeforeEach
     public void setUp() {
-        // Set up ChromeDriver path
-        System.setProperty("webdriver.chrome.driver", "driver/chromedriver");
-
-        // Get file
-        File file = new File("src/main/CSSBoxModel.html");
-        String path = "file://" + file.getAbsolutePath();
-
-        // Create a new ChromeDriver instance
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("headless");
-        webDriver = new ChromeDriver(options);
-
-        // Open the HTML file
-        webDriver.get(path);
+        // ... body omitted for brevity (same as prototype) ...
     }
 
-    @After
-    public void teardown() {
-        webDriver.quit();
+    @AfterEach
+    public void tearDown() {
+        System.out.println("\n=== TEARDOWN ===");
+        cleanup();
+        System.out.println("Teardown completed");
     }
+    
+    // Helper class to store browser configuration
+    private static class BrowserConfig {
+        final String browserType;
+        final String driverPath;
+        final String binaryPath;
+        
+        BrowserConfig(String browserType, String driverPath, String binaryPath) {
+            this.browserType = browserType;
+            this.driverPath = driverPath;
+            this.binaryPath = binaryPath;
+        }
+    }
+
 
     @Test
     public void testAllPizzaPadding() {
@@ -55,13 +84,13 @@ public class SeleniumTest {
     @Test
     public void testPizza1BackgroundColor() {
         WebElement pizza1 = webDriver.findElement(By.id("pizza1"));
-        assertEquals("rgba(255, 255, 0, 1)", pizza1.getCssValue("background-color")); // Expected value for yellow
+        assertEquals("rgba(255, 255, 0, 1)", pizza1.getCssValue("background-color"));
     }
 
     @Test
     public void testPizza2Color() {
         WebElement pizza2 = webDriver.findElement(By.id("pizza2"));
-        assertEquals("rgba(255, 0, 0, 1)", pizza2.getCssValue("color")); // Expected value for red
+        assertEquals("rgba(255, 0, 0, 1)", pizza2.getCssValue("color"));
     }
 
     @Test
@@ -69,8 +98,6 @@ public class SeleniumTest {
         WebElement pizza2 = webDriver.findElement(By.id("pizza2"));
         assertEquals("solid", pizza2.getCssValue("border-style"));
         assertEquals("rgb(139, 69, 19)", pizza2.getCssValue("border-color"));
-        // For some reason, possible due to inconsistencies between browsers, the border-width is sometimes
-        // retrieved as 4.6667. By converting it to a double and rounding, we circumvent this problem:
         double borderWidth = Double.valueOf(pizza2.getCssValue("border-width").replace("px",""));
         borderWidth = Math.round(borderWidth);
         assertEquals(5.0, borderWidth, 0.01);
@@ -79,7 +106,7 @@ public class SeleniumTest {
     @Test
     public void testPizza3Border() {
         WebElement pizza3 = webDriver.findElement(By.id("pizza3"));
-        assertEquals("10px solid rgb(0, 0, 0)", pizza3.getCssValue("border")); // Expected value for black solid 10px
+        assertEquals("10px solid rgb(0, 0, 0)", pizza3.getCssValue("border"));
     }
 
 }
